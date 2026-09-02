@@ -129,8 +129,10 @@ function Home() {
             </div>
             <div className="flex h-48 items-end gap-3">
               {quarters.map((quarter) => (
-                <div key={quarter.label} className="flex-1 bg-surface-raised">
-                  <div className={`w-full ${quarter.tone}`} style={{ height: quarter.height }} />
+                <div key={quarter.label} className="flex h-full flex-1 flex-col justify-end">
+                  <div className="flex h-full flex-col justify-end bg-surface-raised">
+                    <div className={quarter.tone} style={{ height: quarter.height }} />
+                  </div>
                   <span className="mt-2 block text-center text-[9px] text-foreground/40">
                     {quarter.label}
                   </span>
