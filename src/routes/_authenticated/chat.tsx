@@ -65,7 +65,7 @@ function ChatLayout() {
       navigate({
         to: "/chat/$conversationId",
         params: { conversationId: conversation.id },
-        search: prompt ? { prompt } : {},
+        search: { prompt: prompt ?? "" },
       });
     } catch {
       toast.error("Could not start a new consultation.");
@@ -122,6 +122,7 @@ function ChatLayout() {
                       <Link
                         to="/chat/$conversationId"
                         params={{ conversationId: conversation.id }}
+                        search={{ prompt: "" }}
                         className="flex-1 truncate px-2 py-1.5"
                       >
                         {conversation.title}

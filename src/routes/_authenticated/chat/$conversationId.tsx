@@ -5,7 +5,7 @@ import { loadMessages } from "@/lib/conversations";
 
 export const Route = createFileRoute("/_authenticated/chat/$conversationId")({
   validateSearch: (search: Record<string, unknown>) => ({
-    prompt: typeof search.prompt === "string" ? search.prompt : undefined,
+    prompt: typeof search["prompt"] === "string" ? (search["prompt"] as string) : "",
   }),
   component: ConversationPage,
 });
@@ -32,7 +32,7 @@ function ConversationPage() {
       key={conversationId}
       conversationId={conversationId}
       initialMessages={data}
-      initialPrompt={prompt}
+      initialPrompt={prompt || ""}
     />
   );
 }
