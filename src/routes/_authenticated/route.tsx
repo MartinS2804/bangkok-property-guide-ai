@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -9,13 +9,15 @@ export const Route = createFileRoute("/_authenticated")({
 function AuthenticatedLayout() {
   const { session, loading } = useAuth();
   const navigate = useNavigate();
-  const pathname = useRouterState({ select: (state) => state.location.href });
+  const href = useRouterState({ select: (state) => state.location.href });
+  const initialHref = useRef(href);
+  const redirected = useRef(false);
 
   useEffect(() => {
-    if (!loading && !session) {
-      navigate({ to: "/auth", search: { redirect: pathname }, replace: true });
-    }
-  }, [loading, session, navigate, pathname]);
+    if (loading || session || redirected.current) return;
+    redirected.current = true;
+    navigate({ to: "/auth", search: { redirect: initialHref.current }, replace: true });
+  }, [loading, session, navigate]);
 
   if (loading || !session) {
     return (
