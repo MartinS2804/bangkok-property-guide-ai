@@ -4,7 +4,6 @@ import {
   Outlet,
   createFileRoute,
   useNavigate,
-  useParams,
   useRouterState,
 } from "@tanstack/react-router";
 import { toast } from "sonner";
